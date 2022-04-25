@@ -614,6 +614,10 @@
   color: rgba(255, 255, 255, 0.65);
 }
 
+.bd-search .form-control:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
 .bd-search .form-control::placeholder {
   color: rgba(255, 255, 255, 0.65);
 }
@@ -2487,6 +2491,7 @@
   font-size: 1.125rem;
   -webkit-user-select: none;
      -moz-user-select: none;
+      -ms-user-select: none;
           user-select: none;
   text-anchor: middle;
 }
@@ -2793,6 +2798,7 @@
   content: "$ ";
   -webkit-user-select: none;
      -moz-user-select: none;
+      -ms-user-select: none;
           user-select: none;
 }
 
@@ -2801,6 +2807,7 @@
   content: "PM> ";
   -webkit-user-select: none;
      -moz-user-select: none;
+      -ms-user-select: none;
           user-select: none;
 }
 

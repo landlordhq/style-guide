@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="vnu">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/node_modules/vnu-jar/build/dist/vnu.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
