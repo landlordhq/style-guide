@@ -1,4 +1,7 @@
 baseURL = 'https://landlordhq.github.io/style-guide/'
+# baseURL = 'http://example.org/'
+RelativeURLs=true
+CanonifyURLs=true
 languageCode = 'en-us'
 
 title = "Bootstrap"
