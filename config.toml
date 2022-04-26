@@ -10,7 +10,6 @@ buildFuture = true
 enableRobotsTXT = true
 metaDataFormat = "yaml"
 disableKinds = [ "404", "taxonomy", "term", "RSS" ]
-publishDir = "docs"
 
 [security]
 enableInlineShortcodes = true
