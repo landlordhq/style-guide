@@ -13,7 +13,7 @@ http://localhost:8000/static/base_agent_spa.css
 
 This behavior is specified in /site/layouts/partials/stylesheet.html
 
-- Start the CSS watcher `just run-css`
-- Start Django
+- Start landlordweb CSS watcher
+- Start landlordweb server
 - Update the agent app styles in Django
 - View the style guide at http://localhost:1313/style-guide/
