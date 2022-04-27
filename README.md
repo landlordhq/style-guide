@@ -1,19 +1,26 @@
-# Deploying
-Changes to the main branch are built using the script in gh-pages.yml and deployed on merge to: https://landlordhq.github.io/style-guide/
-
-# Development
-
+# Overview
 This style guide inherits the live Bootstrap CSS stylesheets used by landlordweb so that consistency is guaranteed.  
 
-- In production:
-https://app.steadily.com/static/base_agent_spa.css
+The style guide is generated at https://landlordhq.github.io/style-guide/ 
 
-- In development:
-http://localhost:8000/static/base_agent_spa.css
+# Setup
+`brew install hugo`
 
-This behavior is specified in /site/layouts/partials/stylesheet.html
+# Development
+Run `hugo server` then check the console for the URL to open
 
-- Start landlordweb CSS watcher
-- Start landlordweb server
-- Update the agent app styles in Django
-- View the style guide at http://localhost:1313/style-guide/
+# Using production CSS (default)
+By default the style guide uses the production bootstrap CSS hosted here: https://app.steadily.com/static/base_agent_spa.css
+
+# Using local CSS
+When you're actively updating the Django app stylesheet and want to see those changes reflected in the styleguide:
+
+- Start landlordweb local CSS watcher
+- Start landlordweb local server
+- Run `hugo server -e development-css`
+
+This flag sets the environment to "development-css", which will cause the style guide to serve bootstrap locally from http://localhost:8000/static/base_agent_spa.css 
+
+# Deploying
+
+Commits to the main branch are built using the github actions in gh-pages.yml and deployed on merge after about 60 seconds.
