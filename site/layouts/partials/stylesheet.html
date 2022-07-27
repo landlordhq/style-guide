@@ -1,8 +1,8 @@
 {{- "<!-- Bootstrap core CSS -->" | safeHTML }}
 {{ if eq hugo.Environment "development-css" -}}
-  <link href="http://localhost:8000/static/base_agent_spa.css" rel="stylesheet" type="text/css" id="base_css">
+  <link href="http://localhost:8000/static/base_portal.css" rel="stylesheet" type="text/css" id="base_css">
 {{- else -}}
-  <link href="https://app.steadily.com/static/base_agent_spa.css" rel="stylesheet" type="text/css" id="base_css">
+  <link href="https://app.steadily.com/static/base_portal.css" rel="stylesheet" type="text/css" id="base_css">
 {{- end }}
 
 {{- if (ne .Page.Layout "examples") }}
