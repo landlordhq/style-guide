@@ -1,9 +1,13 @@
-{{- "<!-- Bootstrap core CSS -->" | safeHTML }}
+{{ if eq .Page.Layout "docs" -}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+{{- end }}
+
 {{ if eq hugo.Environment "development-css" -}}
   <link href="http://localhost:8000/static/base_portal.css" rel="stylesheet" type="text/css" id="base_css">
 {{- else -}}
   <link href="https://app.steadily.com/static/base_portal.css" rel="stylesheet" type="text/css" id="base_css">
 {{- end }}
+
 
 {{- if (ne .Page.Layout "examples") }}
 {{- $targetDocsCssPath := path.Join "/docs" .Site.Params.docs_version "assets/css/docs.css" -}}
@@ -11,7 +15,7 @@
 {{- $postcssOptions := dict "use" "autoprefixer" "noMap" true -}}
 
 {{ if eq hugo.Environment "production" -}}
-{{- $sassOptions = merge $sassOptions (dict "outputStyle" "compressed") -}}
+  {{- $sassOptions = merge $sassOptions (dict "outputStyle" "compressed") -}}
 {{- end -}}
 
 {{- $style := resources.Get "scss/docs.scss" | toCSS $sassOptions | postCSS $postcssOptions }}

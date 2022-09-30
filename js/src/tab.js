@@ -1,6 +1,6 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v5.1.3): tab.js
+ * Bootstrap (v5.2.0): tab.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
@@ -109,13 +109,9 @@ class Tab extends BaseComponent {
 
     this._activate(getElementFromSelector(element)) // Search and activate/show the proper section
 
-    const isAnimated = element.classList.contains(CLASS_NAME_FADE)
     const complete = () => {
-      if (isAnimated) { // todo: maybe is redundant
-        element.classList.add(CLASS_NAME_SHOW)
-      }
-
       if (element.getAttribute('role') !== 'tab') {
+        element.classList.add(CLASS_NAME_SHOW)
         return
       }
 
@@ -128,7 +124,7 @@ class Tab extends BaseComponent {
       })
     }
 
-    this._queueCallback(complete, element, isAnimated)
+    this._queueCallback(complete, element, element.classList.contains(CLASS_NAME_FADE))
   }
 
   _deactivate(element, relatedElem) {
@@ -141,13 +137,9 @@ class Tab extends BaseComponent {
 
     this._deactivate(getElementFromSelector(element)) // Search and deactivate the shown section too
 
-    const isAnimated = element.classList.contains(CLASS_NAME_FADE)
     const complete = () => {
-      if (isAnimated) { // todo maybe is redundant
-        element.classList.remove(CLASS_NAME_SHOW)
-      }
-
       if (element.getAttribute('role') !== 'tab') {
+        element.classList.remove(CLASS_NAME_SHOW)
         return
       }
 
@@ -157,7 +149,7 @@ class Tab extends BaseComponent {
       EventHandler.trigger(element, EVENT_HIDDEN, { relatedTarget: relatedElem })
     }
 
-    this._queueCallback(complete, element, isAnimated)
+    this._queueCallback(complete, element, element.classList.contains(CLASS_NAME_FADE))
   }
 
   _keydown(event) {
@@ -168,8 +160,11 @@ class Tab extends BaseComponent {
     event.stopPropagation()// stopPropagation/preventDefault both added to support up/down keys without scrolling the page
     event.preventDefault()
     const isNext = [ARROW_RIGHT_KEY, ARROW_DOWN_KEY].includes(event.key)
-    const nextActiveElement = getNextActiveElement(this._getChildren(), event.target, isNext, true)
-    Tab.getOrCreateInstance(nextActiveElement).show()
+    const nextActiveElement = getNextActiveElement(this._getChildren().filter(element => !isDisabled(element)), event.target, isNext, true)
+
+    if (nextActiveElement) {
+      Tab.getOrCreateInstance(nextActiveElement).show()
+    }
   }
 
   _getChildren() { // collection of inner elements

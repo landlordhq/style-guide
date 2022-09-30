@@ -1,5 +1,5 @@
 /*!
-  * Bootstrap modal.js v5.1.3 (https://getbootstrap.com/)
+  * Bootstrap modal.js v5.2.0 (https://getbootstrap.com/)
   * Copyright 2011-2022 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
@@ -20,7 +20,7 @@
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.3): modal.js
+   * Bootstrap (v5.2.0): modal.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -39,6 +39,7 @@
   const EVENT_SHOW = `show${EVENT_KEY}`;
   const EVENT_SHOWN = `shown${EVENT_KEY}`;
   const EVENT_RESIZE = `resize${EVENT_KEY}`;
+  const EVENT_MOUSEDOWN_DISMISS = `mousedown.dismiss${EVENT_KEY}`;
   const EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY}`;
   const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}`;
   const CLASS_NAME_OPEN = 'modal-open';
@@ -51,13 +52,13 @@
   const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="modal"]';
   const Default = {
     backdrop: true,
-    keyboard: true,
-    focus: true
+    focus: true,
+    keyboard: true
   };
   const DefaultType = {
     backdrop: '(boolean|string)',
-    keyboard: 'boolean',
-    focus: 'boolean'
+    focus: 'boolean',
+    keyboard: 'boolean'
   };
   /**
    * Class definition
@@ -158,22 +159,10 @@
 
 
     _initializeBackDrop() {
-      const clickCallback = () => {
-        if (this._config.backdrop === 'static') {
-          this._triggerBackdropTransition();
-
-          return;
-        }
-
-        this.hide();
-      }; // 'static' option will be translated to true, and booleans will keep their value
-
-
-      const isVisible = Boolean(this._config.backdrop);
       return new Backdrop__default.default({
-        isVisible,
-        isAnimated: this._isAnimated(),
-        clickCallback: isVisible ? clickCallback : null
+        isVisible: Boolean(this._config.backdrop),
+        // 'static' option will be translated to true, and booleans will keep their value,
+        isAnimated: this._isAnimated()
       });
     }
 
@@ -239,6 +228,22 @@
       EventHandler__default.default.on(window, EVENT_RESIZE, () => {
         if (this._isShown && !this._isTransitioning) {
           this._adjustDialog();
+        }
+      });
+      EventHandler__default.default.on(this._element, EVENT_MOUSEDOWN_DISMISS, event => {
+        if (event.target !== event.currentTarget) {
+          // click is inside modal-dialog
+          return;
+        }
+
+        if (this._config.backdrop === 'static') {
+          this._triggerBackdropTransition();
+
+          return;
+        }
+
+        if (this._config.backdrop) {
+          this.hide();
         }
       });
     }
